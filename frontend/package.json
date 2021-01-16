@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@mdi/js": "^5.8.55",
     "core-js": "^3.6.5",
     "nuxt": "^2.14.6"
   },
