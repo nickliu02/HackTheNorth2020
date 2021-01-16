@@ -3,7 +3,7 @@
             <div>
                 <v-tabs v-model="tab" show-arrows background-color="deep-purple accent-4" icons-and-text dark grow>
                     <v-tabs-slider color="purple darken-4"></v-tabs-slider>
-                    <v-tab v-for="i in tabs" :key="i">
+                    <v-tab v-for="(i,index) in tabs" :key="index">
                         <v-icon large>{{ i.icon }}</v-icon>
                         <div class="caption py-1">{{ i.name }}</div>
                     </v-tab>
@@ -78,6 +78,7 @@ export default {
   },
   methods: {
     validate() {
+      this.$store.commit('auth/setAuth',true); // Change this to fit whatever
       this.$router.push('/Projects');
       if (this.$refs.loginForm.validate()) {
         // submit form to server/API here...
@@ -101,7 +102,7 @@ export default {
         {name:"Register", icon:"mdi-account-outline"}
     ],
     valid: true,
-    
+
     firstName: "",
     lastName: "",
     email: "",
