@@ -1,7 +1,7 @@
 <template>
         <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px">
             <div>
-                <v-tabs v-model="tab" show-arrows background-color="primary" icons-and-text dark grow>
+                <v-tabs v-model="tab" show-arrows background-color="primary" icons-and-text dark grow >
                     <v-tabs-slider color="secondary"></v-tabs-slider>
                     <v-tab v-for="(i,index) in tabs" :key="index">
                         <v-icon large>{{ i.icon }}</v-icon>
@@ -22,7 +22,7 @@
                                         </v-col>
                                         <v-spacer></v-spacer>
                                         <v-col class="d-flex" cols="12" sm="3" xsm="12" align-end>
-                                            <v-btn large block :disabled="!valid" color="success" @click="login"> Login </v-btn>
+                                            <v-btn large block :disabled="!valid" color="success" @click="validate"> Login </v-btn>
                                         </v-col>
                                     </v-row>
                                 </v-form>
@@ -45,7 +45,7 @@
                                         </v-col>
                                         <v-spacer></v-spacer>
                                         <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
-                                            <v-btn large block :disabled="!valid" color="success" @click="register">Register</v-btn>
+                                            <v-btn large block :disabled="!valid" color="success" @click="validate">Register</v-btn>
                                         </v-col>
                                     </v-row>
                                 </v-form>
@@ -71,8 +71,9 @@ export default {
     }
   },
   methods: {
-    login() {
-      // submit form to server/API here...
+    validate() {
+      if (this.tab == 0) {
+        // submit form to server/API here...
         let form =  {
          "username": this.loginUsername,
          "password": this.loginPassword
@@ -89,16 +90,16 @@ export default {
             console.log("Login success")
             this.$store.commit('auth/setUser',this.loginUsername);
             this.$store.commit('auth/setAuth',true); // Change this to fit whatever
-            this.$store.commit('auth/setJwt',response.data.accessToken);
+            this.$store.commit('auth/setJwt',response.data.token);
             this.$router.push('/Dashboard');
           }
           else {
            console.log("login failure")
           }
         })
-    },
+    }
+      else if (this.tab == 1) {
 
-    register() {
         let form =  {
           "username": this.username,
           "password": this.password
@@ -112,10 +113,10 @@ export default {
           .then(response => {
               this.$store.commit('auth/setUser',this.username)
               this.$store.commit('auth/setAuth',true); // Change this to fit whatever
-              this.$store.commit('auth/setJwt', response.data.accessToken)
+              this.$store.commit('auth/setJwt', response.data.token)
               this.$router.push('/Dashboard');
           })
-      },
+      }},
 
     reset() {
       this.$refs.form.reset();
@@ -127,6 +128,7 @@ export default {
   data: () => ({
 
     tab: 0,
+    active_tab:0,
     tabs: [
         {name:"Login", icon:"mdi-account"},
         {name:"Register", icon:"mdi-account-outline"}
