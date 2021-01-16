@@ -19,9 +19,6 @@
          Name: {{info.username}}
        </v-list-item>
        <v-list-item>
-         Email: {{info.email}}
-       </v-list-item>
-       <v-list-item>
          Password: *****
        </v-list-item>
      </v-list>
@@ -52,9 +49,7 @@ export default {
   mounted: function() {
     // Getting profile info
     this.info = {
-      username: "zhehahizhang",
-      email: "zhehai@zhehaizhang.com",
-      password: ""
+      username: this.$store.state.auth.user,
 
     }
     /*

@@ -78,33 +78,42 @@ export default {
          "username": this.username,
          "password":this.password
         }
-        this.$axios.post(this.BaseURL+"/login", {
+        this.$axios.post("http://ceres.host.412294.xyz"+"/users/login", {
           ...form
-        })
+        },
+          {
+            headers: {'Content-Type':'application/json'}
+          }
+        )
         .then(response => {
           if (typeof response.data.response === 'string') {
             console.log("Login success")
             this.$store.commit('auth/setUser',this.username);
             this.$store.commit('auth/setAuth',true); // Change this to fit whatever
+            this.$store.commit('auth/setJwt',response.data.accessToken);
             this.$router.push('/Dashboard');
           }
           else {
            console.log("login failure")
           }
         })
-
       }
       else if (this.$refs.registerForm.validate()) {
+
         let form =  {
           "username": this.username,
           "password":this.password
         }
-        this.$axios.post(this.BaseURL+"/register", {
+        this.$axios.post("http://ceres.host.412294.xyz"+"/users", {
           ...form
-        })
+        },
+          {
+            headers: {'Content-Type':'application/json'}
+          })
           .then(response => {
               this.$store.commit('auth/setUser',this.username)
               this.$store.commit('auth/setAuth',true); // Change this to fit whatever
+              this.$store.commit('auth/setJwt', response.data.accessToken)
               this.$router.push('/Dashboard');
           })
       }
@@ -135,6 +144,7 @@ export default {
     usernameRules: [
       v => !!v || "Required",
       v => (v && v.length >= 3) || "Min 3 characters"
+
     ],
 
     show1: false,
