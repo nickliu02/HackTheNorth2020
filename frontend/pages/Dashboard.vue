@@ -155,7 +155,7 @@ export default {
           this.isNewProjectModalOpen = true;
       },
       exit() {
-          console.log("here");
+          console.log("here"); 
           this.isModalOpen = false;
       },
       exitDelete() {
