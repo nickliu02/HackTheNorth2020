@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@mdi/js": "^5.8.55",
+    "@nuxtjs/axios": "^5.12.5",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "nuxt": "^2.14.6"
   },

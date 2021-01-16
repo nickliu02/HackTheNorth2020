@@ -8,18 +8,15 @@
             >
             <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-            <v-toolbar-title>{{ title }}</v-toolbar-title>
-            
-            <div id="switch">
-                <v-switch 
+              <v-toolbar-title>{{ title }}</v-toolbar-title>
+                <v-spacer></v-spacer>
+              <div id="switch">
+                  <v-switch
+                    inset
                     v-model = "$vuetify.theme.dark"
                     class="mt-auto"
-                ></v-switch>
-            </div>
-                
-            
-          
-              
+                  ></v-switch>
+              </div>
             </v-app-bar>
 
         </v-card>
