@@ -115,19 +115,17 @@ export default {
 
   },
 
-  directives: {
-    ClickOutside
+  data: () => {
+    return {
+        mdiDotsHorizontal: mdiDotsHorizontal,
+        info: {},
+        isModalOpen: false,
+        selectedProject: {},
+        isDeleteModalOpen: false,
+        isDuplicateModalOpen: false,
+        isNewProjectModalOpen: false,
+    }
   },
-
-  data: () => ({
-    mdiDotsHorizontal: mdiDotsHorizontal,
-    info: {},
-    isModalOpen: false,
-    selectedProject: {},
-    isDeleteModalOpen: false,
-    isDuplicateModalOpen: false,
-    isNewProjectModalOpen: false,
-  }),
 
   methods: {
       formatConfig (arr) {
