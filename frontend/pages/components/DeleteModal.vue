@@ -14,7 +14,7 @@
                 <v-btn
                   color="green darken-1"
                   text
-                  @click="this.exit()"
+                  @click="deleteProject"
                 >
                     Yes
                 </v-btn>
@@ -22,7 +22,7 @@
                 <v-btn
                   color="red darken-1"
                   text
-                  @click="this.exit()"
+                  @click="exit"
                 >
                     No
                 </v-btn>
@@ -50,14 +50,12 @@ export default {
     exit() {
         this.$emit("exit", true);
     },
-    delete() {
-
+    deleteProject() {
+        this.exit();
     }
   },
   data: () => ({
       mdiClose: mdiClose,
-      user: "",
-
   })
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
         <v-dialog v-model="dialog" persistent max-width="450px" min-width="400px" class="overflow-hidden">
-            <v-card>
+            <v-card class="overflow-hidden">
                 <v-card-title class="white--text black">
                     Contributors <v-spacer></v-spacer><v-icon @click="exit">{{mdiClose}}</v-icon>
                 </v-card-title>

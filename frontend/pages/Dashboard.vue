@@ -12,6 +12,7 @@
             color="secondary"
             bottom
             left
+            @click='openNewProjectModal'
           >New Project</v-btn>
       </v-toolbar>
 
@@ -77,6 +78,20 @@
         @exit="exitDelete"
     >
     </DeleteModal>
+    <DuplicateModal
+        v-show="isDuplicateModalOpen"
+        v-bind:dialog="isDuplicateModalOpen"
+        v-bind:project="selectedProject"
+        @exit="exitDuplicate"
+    >
+    </DuplicateModal>
+    
+    <NewProjectModal
+        v-show="isDuplicateModalOpen"
+        v-bind:dialog="isNewProjectModalOpen"
+        @exit="exitNewProjectModal"
+
+    />
 
   </v-app>
 
@@ -88,13 +103,17 @@ import { mdiDotsHorizontal } from "@mdi/js";
 import ContributorsModal from "./components/ContributorsModal";
 import ClickOutside from 'vue-click-outside';
 import DeleteModal from './components/DeleteModal';
+import DuplicateModal from './components/DuplicateModal';
+import NewProjectModal from './components/NewProjectModal';
 
 export default {
   name: "Dashboard",
 
   components: {
     Appbar, mdiDotsHorizontal,
-    ContributorsModal, DeleteModal
+    ContributorsModal, DeleteModal, 
+    DuplicateModal, NewProjectModal
+    
   },
 
   directives: {
@@ -108,6 +127,7 @@ export default {
     selectedProject: {},
     isDeleteModalOpen: false,
     isDuplicateModalOpen: false,
+    isNewProjectModalOpen: false,
   }),
 
   methods: {
@@ -131,15 +151,23 @@ export default {
           this.isDuplicateModalOpen = true;
           this.selectedProject = project;
       },
+      openNewProjectModal() {
+          this.isNewProjectModalOpen = true;
+      },
       exit() {
           console.log("here");
           this.isModalOpen = false;
-          this.selectedProject = {};
       },
       exitDelete() {
           this.isDeleteModalOpen = false;
-          this.selectedProject = {};
-      }
+      },
+      exitDuplicate() {
+          this.isDuplicateModalOpen = false;
+      },
+      exitNewProjectModal() {
+          this.isNewProjectModalOpen = false;
+      },
+
   },
   mounted: function() {
     // Getting VM info
