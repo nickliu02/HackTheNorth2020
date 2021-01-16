@@ -78,6 +78,7 @@ export default {
   },
   methods: {
     validate() {
+      this.$router.push('/Projects');
       if (this.$refs.loginForm.validate()) {
         // submit form to server/API here...
       }
@@ -87,10 +88,13 @@ export default {
     },
     resetValidation() {
       this.$refs.form.resetValidation();
+    },
+    exit() {
+        this.$parent.exit;
     }
   },
   data: () => ({
-    dialog: false,
+
     tab: 0,
     tabs: [
         {name:"Login", icon:"mdi-account"},

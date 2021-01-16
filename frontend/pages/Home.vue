@@ -1,5 +1,7 @@
 <template v-bind:style="{ 'backgroundImage': 'url(../static/splash_screen.jpg)' }">
     <v-app>
+        
+
         <div id="main">
             <h1 id="title">Title</h1>
             <h2 id="tagline">Tagline</h2>
@@ -17,11 +19,12 @@
 import LoginModal from './components/LoginModal';
 
 
+
 export default {
   name: 'Home',
 
   components: {
-    LoginModal,
+    LoginModal
   },
 
   data: () => ({
