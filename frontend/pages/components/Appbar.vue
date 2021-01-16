@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-card
-            fluid class="primary fill-height"
+            
         >
             <v-app-bar
                 dark
@@ -15,6 +15,7 @@
                 v-model="drawer"
                 absolute
                 temporary
+                
             >
             <v-list
                 nav

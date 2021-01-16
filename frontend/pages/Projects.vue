@@ -6,12 +6,12 @@
 </template>
 
 <script>
-
+import Appbar from './components/Appbar';
 
 export default {
     name: 'Projects',
     components: {
-      
+        Appbar,
     }
 }
 </script>
