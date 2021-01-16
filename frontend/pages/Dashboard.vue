@@ -4,7 +4,7 @@
 
     <v-card>
       <v-toolbar
-        extended
+        
       >
         <v-card-title size = 300>Projects</v-card-title>
           <v-btn
@@ -13,12 +13,9 @@
             bottom
             left
           >New Project</v-btn>
-
-
-
       </v-toolbar>
 
-
+    
 
     <v-container class = "d-flex flex-wrap align-content-space-around">
       <v-hover v-slot="{hover}" v-for="(project,index) in info.projects" :key="index">
@@ -29,41 +26,81 @@
           height = 400
           width = 400
         >
-          <v-card-title>{{project.name}}</v-card-title>
+          <v-card-title>{{project.name}} <v-spacer></v-spacer><v-icon @click="openModal(project)">{{ mdiDotsHorizontal }}</v-icon></v-card-title>
           <v-img
             max-height="300"
             max-width="400"
             :src="project.thumbnail"
           > </v-img>
-          <v-card-text>project.os</v-card-text>
-          <v-card-text>project.config</v-card-text>
+          <v-card-text>{{project.os}}</v-card-text>
+          <v-card-text>{{formatConfig(project.config)}}</v-card-text>
+          
         </v-card>
       </v-hover>
 
+    
 
     </v-container>
     </v-card>
+
+    <ContributorsModal 
+        v-show="isModalOpen"
+        v-bind:dialog="isModalOpen"
+        v-bind:project="selectedProject"
+        v-click-outside="exit"
+        @exit="exit"
+    />
   </v-app>
 
 </template>
 
 <script>
 import Appbar from "./components/Appbar";
+import { mdiDotsHorizontal } from "@mdi/js";
+import ContributorsModal from "./components/ContributorsModal";
+import ClickOutside from 'vue-click-outside';
+
 
 export default {
   name: "Dashboard",
 
   components: {
-    Appbar
+    Appbar, mdiDotsHorizontal,
+    ContributorsModal
   },
-  data: () => ({
-    info: {
 
-      }
+  directives: {
+    ClickOutside
+  },
+
+  data: () => ({
+    mdiDotsHorizontal: mdiDotsHorizontal,
+    info: {},
+    isModalOpen: false,
+    selectedProject: {},
+    isDeleteModalOpen: false,
+    isDuplicateModalOpen: false,
   }),
 
   methods: {
+      formatConfig (arr) {
+          let out = "";
+          for (let i = 0; i < arr.length; i++) {
+              out += arr[i] + ', ';
+          }
+          out = out.substring(0, out.length - 2);
+          return out;
+      },
+      openModal(project) {
+          this.isModalOpen = true;
+          this.selectedProject = project;
+      },
 
+      exit() {
+          console.log("here");
+          this.isModalOpen = false;
+          this.selectedProject = {};
+      }
   },
   mounted: function() {
     // Getting VM info
@@ -73,7 +110,7 @@ export default {
           name: "test1",
           os: "Linux",
           config: ["python","bogosort","opencv"],
-          users: ["fairnightzz","kaitokid"],
+          users: ["fairnightzz","kaitokid", "nickliu02", "lmaoxd", "darkgreenrice", "waterpoke", "pikachu"],
           thumbnail: "https://www.osboxes.org/wp-content/uploads/photo-gallery/ubuntu.jpg"
         },
         {
@@ -106,6 +143,7 @@ export default {
         }
       ]
     }
+    this.popupItem = this.$el;
     /*
     this.$axios.get(this.BaseURL + "/projects",
       {
