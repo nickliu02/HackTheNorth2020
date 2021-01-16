@@ -14,7 +14,8 @@
                   <v-switch
                     inset
                     v-model = "$vuetify.theme.dark"
-                    class="mt-auto"
+                    class="my-auto"
+                    align="center"
                   ></v-switch>
               </div>
             </v-app-bar>

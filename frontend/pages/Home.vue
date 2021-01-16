@@ -3,12 +3,13 @@
         
 
         <div id="main">
-            <h1 id="title">Title</h1>
-            <h2 id="tagline">Tagline</h2>
-            <v-btn @click="openLoginModal">Get Started</v-btn>
+            <h1 id="title">Subspace</h1>
+            <h2 id="tagline">Closed Under Addition and Scalar Multiplication</h2>
+            <v-divider></v-divider>
+            <v-btn @click="openLoginModal" id="btn" x-large>Get Started</v-btn>
         </div>
 
-    
+
         <LoginModal v-bind:dialog="isLoginModalOpen"/>
  
         
@@ -53,12 +54,16 @@ export default {
 }
 
 #title {
-    font-size: 80px;
+    font-size: 90px;
     
 }
 
 #tagline {
-    font-size: 60px;
+    font-size: 40px;
     text-align: center;
+}
+
+#btn {
+    margin: 20px;
 }
 </style>

@@ -1,13 +1,18 @@
 <template>
   <v-app>
     <Appbar v-bind:title="'Account'"/>
-    <h1>Account</h1>
     <v-card class="mx-auto ma-12">
       <v-img
         width = 600
         src="https://blogs.lse.ac.uk/management/files/2016/11/technology-785742_1920.jpg"
       ></v-img>
-     <v-card-title>User Info:</v-card-title>
+     <v-card-title>
+         User Info
+         <v-spacer></v-spacer>
+         <v-icon>
+             {{ mdiPencil }}
+         </v-icon>
+     </v-card-title>
      <v-divider class="mx-4"></v-divider>
      <v-list>
        <v-list-item>
@@ -27,6 +32,7 @@
 
 <script>
 import Appbar from "./components/Appbar";
+import { mdiPencil } from '@mdi/js';
 
 export default {
   name: "Account",
@@ -37,7 +43,9 @@ export default {
   data: () => ({
     info: {
 
-    }
+    },
+
+    mdiPencil: mdiPencil,
   }),
 
   methods: {},
