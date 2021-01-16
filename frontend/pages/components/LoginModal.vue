@@ -1,8 +1,8 @@
 <template>
         <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px">
             <div>
-                <v-tabs v-model="tab" show-arrows background-color="deep-purple accent-4" icons-and-text dark grow>
-                    <v-tabs-slider color="purple darken-4"></v-tabs-slider>
+                <v-tabs v-model="tab" show-arrows background-color="primary" icons-and-text dark grow>
+                    <v-tabs-slider color="secondary"></v-tabs-slider>
                     <v-tab v-for="(i,index) in tabs" :key="index">
                         <v-icon large>{{ i.icon }}</v-icon>
                         <div class="caption py-1">{{ i.name }}</div>
