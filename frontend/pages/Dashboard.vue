@@ -101,7 +101,6 @@
 import Appbar from "./components/Appbar";
 import { mdiDotsHorizontal } from "@mdi/js";
 import ContributorsModal from "./components/ContributorsModal";
-import ClickOutside from 'vue-click-outside';
 import DeleteModal from './components/DeleteModal';
 import DuplicateModal from './components/DuplicateModal';
 import NewProjectModal from './components/NewProjectModal';
