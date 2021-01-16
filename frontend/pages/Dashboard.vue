@@ -26,7 +26,29 @@
           height = 400
           width = 400
         >
-          <v-card-title>{{project.name}} <v-spacer></v-spacer><v-icon @click="openModal(project)">{{ mdiDotsHorizontal }}</v-icon></v-card-title>
+          <v-card-title>{{project.name}} <v-spacer></v-spacer>
+            <v-menu
+                top
+                :close-on-click="closeOnClick"
+                offset-y
+            >
+            <template v-slot:activator="{ on, attrs }">
+                <v-icon v-on="on" v-bind="attrs">{{ mdiDotsHorizontal }}</v-icon>
+            </template>
+
+            <v-list>
+                <v-list-item @click="openModal(project)">
+                    <v-list-item-title>Contributors</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="openDeleteModal(project)">
+                    <v-list-item-title>Delete</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="openDuplicateModal(project)">
+                    <v-list-item-title>Duplicate</v-list-item-title>
+                </v-list-item>
+            </v-list>
+            </v-menu>
+          </v-card-title>
           <v-img
             max-height="300"
             max-width="400"
@@ -95,7 +117,12 @@ export default {
           this.isModalOpen = true;
           this.selectedProject = project;
       },
+      openDeleteModal(project) {
 
+      },
+      openDuplicateModal(project) {
+
+      },
       exit() {
           console.log("here");
           this.isModalOpen = false;
