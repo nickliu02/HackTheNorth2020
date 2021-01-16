@@ -8,7 +8,7 @@
                         <div class="caption py-1">{{ i.name }}</div>
                     </v-tab>
                     <v-tab-item>
-                        <v-card class="px-4">
+                        <v-card class="px-4" background-color="white">
                             <v-card-text>
                                 <v-form ref="loginForm" v-model="valid" lazy-validation>
                                     <v-row>
