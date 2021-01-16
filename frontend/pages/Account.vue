@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <Appbar v-bind:title="'Dashboard'"/>
-    <h1>Dashboard</h1>
+    <Appbar v-bind:title="'Account'"/>
+    <h1>Account</h1>
   </v-app>
 
 </template>
@@ -10,7 +10,7 @@
 import Appbar from "./components/Appbar";
 
 export default {
-  name: "Dashboard",
+  name: "Account",
 
   components: {
     Appbar

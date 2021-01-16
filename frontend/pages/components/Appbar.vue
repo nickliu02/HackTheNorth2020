@@ -8,9 +8,18 @@
             >
             <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-            <v-toolbar-title>Title</v-toolbar-title>
-              <v-switch
-                v-model = "$vuetify.theme.dark"></v-switch>
+            <v-toolbar-title>{{ title }}</v-toolbar-title>
+            
+            <div id="switch">
+                <v-switch 
+                    v-model = "$vuetify.theme.dark"
+                    class="mt-auto"
+                ></v-switch>
+            </div>
+                
+            
+          
+              
             </v-app-bar>
 
         </v-card>
@@ -64,6 +73,10 @@ import { mdiViewDashboard, mdiAccount, mdiLogoutVariant } from '@mdi/js';
 export default {
   name: 'Appbar',
 
+  props: {
+        title: String
+  },
+
   components: {
 
   },
@@ -89,3 +102,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+
+#switch {
+    text-align: right;
+}
+</style>
