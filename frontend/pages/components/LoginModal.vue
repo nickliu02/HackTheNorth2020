@@ -132,13 +132,9 @@ export default {
     verify: "",
     loginPassword: "",
     loginUsername: "",
-    loginEmailRules: [
-      v => !!v || "Required",
-      v => (v && v.length >= 3) || "Min 3 characters"
-    ],
     usernameRules: [
       v => !!v || "Required",
-      v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      v => (v && v.length >= 3) || "Min 3 characters"
     ],
 
     show1: false,
