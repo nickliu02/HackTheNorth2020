@@ -29,7 +29,6 @@
           <v-card-title>{{project.name}} <v-spacer></v-spacer>
             <v-menu
                 top
-                :close-on-click="closeOnClick"
                 offset-y
             >
             <template v-slot:activator="{ on, attrs }">
@@ -69,9 +68,16 @@
         v-show="isModalOpen"
         v-bind:dialog="isModalOpen"
         v-bind:project="selectedProject"
-        v-click-outside="exit"
         @exit="exit"
     />
+    <DeleteModal
+        v-show="isDeleteModalOpen"
+        v-bind:dialog="isDeleteModalOpen"
+        v-bind:project="selectedProject"
+        @exit="exitDelete"
+    >
+    </DeleteModal>
+
   </v-app>
 
 </template>
@@ -81,14 +87,14 @@ import Appbar from "./components/Appbar";
 import { mdiDotsHorizontal } from "@mdi/js";
 import ContributorsModal from "./components/ContributorsModal";
 import ClickOutside from 'vue-click-outside';
-
+import DeleteModal from './components/DeleteModal';
 
 export default {
   name: "Dashboard",
 
   components: {
     Appbar, mdiDotsHorizontal,
-    ContributorsModal
+    ContributorsModal, DeleteModal
   },
 
   directives: {
@@ -118,14 +124,20 @@ export default {
           this.selectedProject = project;
       },
       openDeleteModal(project) {
-
+          this.isDeleteModalOpen = true;
+          this.selectedProject = project;
       },
       openDuplicateModal(project) {
-
+          this.isDuplicateModalOpen = true;
+          this.selectedProject = project;
       },
       exit() {
           console.log("here");
           this.isModalOpen = false;
+          this.selectedProject = {};
+      },
+      exitDelete() {
+          this.isDeleteModalOpen = false;
           this.selectedProject = {};
       }
   },

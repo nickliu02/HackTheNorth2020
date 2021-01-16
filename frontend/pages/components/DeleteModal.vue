@@ -1,9 +1,35 @@
 <template>
-        <v-dialog v-model="dialog" persistent min-width="400px" class="overflow-hidden">
-            <v-card>
-              
+          <v-dialog
+            v-model="dialog"
+            max-width="350"
+          >
+
+            <v-card id="modal">
+              <v-card-title class="headline justify-center">
+                 Delete {{project.name}}?
+              </v-card-title>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="green darken-1"
+                  text
+                  @click="this.exit()"
+                >
+                    Yes
+                </v-btn>
+
+                <v-btn
+                  color="red darken-1"
+                  text
+                  @click="this.exit()"
+                >
+                    No
+                </v-btn>
+              </v-card-actions>
             </v-card>
-        </v-dialog>
+          </v-dialog>
+
 </template>
 
 <script>
@@ -24,9 +50,9 @@ export default {
     exit() {
         this.$emit("exit", true);
     },
-    addUser() {
+    delete() {
 
-    },
+    }
   },
   data: () => ({
       mdiClose: mdiClose,

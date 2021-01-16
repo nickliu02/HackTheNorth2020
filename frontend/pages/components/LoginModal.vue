@@ -109,7 +109,7 @@ export default {
       v => !!v || "Required",
       v => (v && v.length >= 3) || "Min 3 characters"
     ],
-    emailRules: [
+    usernameRules: [
       v => !!v || "Required",
       v => /.+@.+\..+/.test(v) || "E-mail must be valid"
     ],
