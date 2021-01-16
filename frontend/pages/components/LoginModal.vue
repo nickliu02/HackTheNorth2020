@@ -86,16 +86,11 @@ export default {
           }
         )
         .then(response => {
-          if (typeof response.data.response === 'string') {
             console.log("Login success")
             this.$store.commit('auth/setUser',this.loginUsername);
             this.$store.commit('auth/setAuth',true); // Change this to fit whatever
             this.$store.commit('auth/setJwt',response.data.token);
             this.$router.push('/Dashboard');
-          }
-          else {
-           console.log("login failure")
-          }
         })
     }
       else if (this.tab == 1) {

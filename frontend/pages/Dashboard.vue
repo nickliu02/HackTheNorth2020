@@ -4,7 +4,7 @@
 
     <v-card>
       <v-toolbar
-        
+
       >
         <v-card-title size = 300>Projects</v-card-title>
           <v-btn
@@ -16,7 +16,7 @@
           >New Project</v-btn>
       </v-toolbar>
 
-    
+
 
     <v-container class = "d-flex flex-wrap align-content-space-around">
       <v-hover v-slot="{hover}" v-for="(project,index) in info.projects" :key="index">
@@ -56,16 +56,16 @@
           > </v-img>
           <v-card-text>{{project.os}}</v-card-text>
           <v-card-text>{{formatConfig(project.config)}}</v-card-text>
-          
+
         </v-card>
       </v-hover>
 
-    
+
 
     </v-container>
     </v-card>
 
-    <ContributorsModal 
+    <ContributorsModal
         v-show="isModalOpen"
         v-bind:dialog="isModalOpen"
         v-bind:project="selectedProject"
@@ -85,7 +85,7 @@
         @exit="exitDuplicate"
     >
     </DuplicateModal>
-    
+
     <NewProjectModal
         v-show="isDuplicateModalOpen"
         v-bind:dialog="isNewProjectModalOpen"
@@ -110,9 +110,9 @@ export default {
 
   components: {
     Appbar, mdiDotsHorizontal,
-    ContributorsModal, DeleteModal, 
+    ContributorsModal, DeleteModal,
     DuplicateModal, NewProjectModal
-    
+
   },
 
   directives: {
@@ -154,7 +154,7 @@ export default {
           this.isNewProjectModalOpen = true;
       },
       exit() {
-          console.log("here"); 
+          console.log("here");
           this.isModalOpen = false;
       },
       exitDelete() {
@@ -209,7 +209,6 @@ export default {
         }
       ]
     }
-    this.popupItem = this.$el;
     /*
     this.$axios.get(this.BaseURL + "/projects",
       {
