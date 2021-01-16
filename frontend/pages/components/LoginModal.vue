@@ -72,14 +72,41 @@ export default {
   },
   methods: {
     validate() {
-      this.$store.commit('auth/setAuth',true); // Change this to fit whatever
-      this.$router.push('/Dashboard');
       if (this.$refs.loginForm.validate()) {
         // submit form to server/API here...
+        let form =  {
+         "username": this.username,
+         "password":this.password
+        }
+        this.$axios.post(this.BaseURL+"/login", {
+          ...form
+        })
+        .then(response => {
+          if (typeof response.data.response === 'string') {
+            console.log("Login success")
+            this.$store.commit('auth/setUser',this.username);
+            this.$store.commit('auth/setAuth',true); // Change this to fit whatever
+            this.$router.push('/Dashboard');
+          }
+          else {
+           console.log("login failure")
+          }
+        })
 
       }
       else if (this.$refs.registerForm.validate()) {
-        
+        let form =  {
+          "username": this.username,
+          "password":this.password
+        }
+        this.$axios.post(this.BaseURL+"/register", {
+          ...form
+        })
+          .then(response => {
+              this.$store.commit('auth/setUser',this.username)
+              this.$store.commit('auth/setAuth',true); // Change this to fit whatever
+              this.$router.push('/Dashboard');
+          })
       }
 
     },

@@ -1,5 +1,5 @@
 <template>
-    <v-app  v-bind:style="{ 'background-image': 'linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(background.svg)', 'background-position': 'center center',
+    <v-app  v-bind:style="{ 'background-image': 'linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(AAEF.jpg)', 'background-position': 'center center',
   'background-repeat': 'no-repeat', 'background-size': 'cover' }">
         <div>
 
@@ -14,8 +14,8 @@
 
 
         <LoginModal v-bind:dialog="isLoginModalOpen"/>
- 
-        
+
+
     </v-app>
 </template>
 
@@ -53,14 +53,14 @@ export default {
     transform: translate(-50%, -50%);
     text-align: center;
     vertical-align: middle;
-    user-select: none; 
+    user-select: none;
     padding: 20px;
 }
 
 #title {
     font-size: 90px;
     text-shadow: 3px 3px  #000000;
-    
+
 }
 
 #tagline {

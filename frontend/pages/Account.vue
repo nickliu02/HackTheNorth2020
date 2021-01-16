@@ -58,7 +58,7 @@ export default {
 
     }
     /*
-    this.$axios.get(this.BaseURL + "/user/profile",
+    this.$axios.get(this.BaseURL + "/user?"+$store.state.auth.user,
       {
         headers: {
           'x-access-token': this.$store.state.auth.jwt
