@@ -22,7 +22,7 @@
                                         </v-col>
                                         <v-spacer></v-spacer>
                                         <v-col class="d-flex" cols="12" sm="3" xsm="12" align-end>
-                                            <v-btn large block :disabled="!valid" color="success" @click="validate"> Login </v-btn>
+                                            <v-btn large block :disabled="!valid" color="success" @click="login"> Login </v-btn>
                                         </v-col>
                                     </v-row>
                                 </v-form>
@@ -45,7 +45,7 @@
                                         </v-col>
                                         <v-spacer></v-spacer>
                                         <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
-                                            <v-btn large block :disabled="!valid" color="success" @click="validate">Register</v-btn>
+                                            <v-btn large block :disabled="!valid" color="success" @click="register">Register</v-btn>
                                         </v-col>
                                     </v-row>
                                 </v-form>
@@ -71,12 +71,11 @@ export default {
     }
   },
   methods: {
-    validate() {
-      if (this.$refs.loginForm.validate()) {
-        // submit form to server/API here...
+    login() {
+      // submit form to server/API here...
         let form =  {
-         "username": this.username,
-         "password":this.password
+         "username": this.loginUsername,
+         "password": this.loginPassword
         }
         this.$axios.post("http://ceres.host.412294.xyz"+"/users/login", {
           ...form
@@ -88,7 +87,7 @@ export default {
         .then(response => {
           if (typeof response.data.response === 'string') {
             console.log("Login success")
-            this.$store.commit('auth/setUser',this.username);
+            this.$store.commit('auth/setUser',this.loginUsername);
             this.$store.commit('auth/setAuth',true); // Change this to fit whatever
             this.$store.commit('auth/setJwt',response.data.accessToken);
             this.$router.push('/Dashboard');
@@ -97,12 +96,12 @@ export default {
            console.log("login failure")
           }
         })
-      }
-      else if (this.$refs.registerForm.validate()) {
+    },
 
+    register() {
         let form =  {
           "username": this.username,
-          "password":this.password
+          "password": this.password
         }
         this.$axios.post("http://ceres.host.412294.xyz"+"/users", {
           ...form
@@ -116,9 +115,8 @@ export default {
               this.$store.commit('auth/setJwt', response.data.accessToken)
               this.$router.push('/Dashboard');
           })
-      }
+      },
 
-    },
     reset() {
       this.$refs.form.reset();
     },
