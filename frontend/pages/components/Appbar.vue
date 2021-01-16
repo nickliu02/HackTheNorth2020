@@ -1,21 +1,23 @@
 <template>
     <v-app>
         <v-card
-            
+
         >
             <v-app-bar
                 dark
+                class = "mx-auto overflow-hidden"
             >
             <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
             <v-toolbar-title>Title</v-toolbar-title>
             </v-app-bar>
 
+        </v-card>
             <v-navigation-drawer
                 v-model="drawer"
                 absolute
                 temporary
-                
+
             >
             <v-list
                 nav
@@ -41,7 +43,6 @@
                 </v-list-item-group>
             </v-list>
             </v-navigation-drawer>
-        </v-card>
     </v-app>
 </template>
 
@@ -51,7 +52,7 @@ export default {
   name: 'Appbar',
 
   components: {
-    
+
   },
 
   data: () => ({
