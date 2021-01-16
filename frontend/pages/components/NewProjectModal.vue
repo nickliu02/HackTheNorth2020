@@ -20,7 +20,6 @@
                         sm="9"
                         md="9"
                     >
-                    
 
                             <v-card-text>
                                 <v-form ref="form">

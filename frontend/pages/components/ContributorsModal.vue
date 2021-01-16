@@ -1,4 +1,5 @@
 <template>
+    <v-app>
         <v-dialog v-model="dialog" persistent max-width="450px" min-width="400px" class="overflow-hidden">
             <v-card class="overflow-hidden">
                 <v-card-title class="white--text black">
@@ -10,12 +11,14 @@
                         cols="12"
                         sm="9" 
                     >   
-               
-                        <v-text-field
-                            v-model="user" label="Add User"
-                            class="pl-4"
-                        >
-                        </v-text-field>
+                        <v-form ref="form">
+                            <v-text-field
+                                v-model="user" label="Add User"
+                                class="pl-4"
+                            >
+                            </v-text-field>
+                        </v-form>
+                        
                     </v-col>
 
                     <v-col cols="12" sm ="2">
@@ -54,6 +57,22 @@
                     </v-virtual-scroll>
             </v-card>
         </v-dialog>
+
+        <v-dialog v-model="isAddedModalOpen">
+            <v-card-title class="white--text black">
+                    User Added <v-spacer></v-spacer><v-icon @click="closeModal">{{mdiClose}}</v-icon>
+                </v-card-title>
+
+            <v-btn
+                depressed
+                small
+                @click="closeModal"
+                >
+                Ok  
+            </v-btn>
+        </v-dialog>
+    </v-app>
+        
 </template>
 
 <script>
@@ -74,13 +93,25 @@ export default {
     exit() {
         this.$emit("exit", true);
     },
-    addUser() {
 
+    closeModal() {
+        this.isAddedModalOpen = false;
+    },
+
+    async addUser() {
+        await this.$axios.post('/workspaces/add_user/' + this.project.id, {
+            'username': this.user
+        }, {
+            headers: {'Content-Type':'application/json'}
+        }).then((res) => {
+            this.$ref.form.reset();
+        })
     },
   },
   data: () => ({
       mdiClose: mdiClose,
       user: "",
+      isAddedModalOpen: false,
 
   })
 }
