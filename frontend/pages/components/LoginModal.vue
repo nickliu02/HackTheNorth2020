@@ -90,9 +90,6 @@ export default {
     resetValidation() {
       this.$refs.form.resetValidation();
     },
-    exit() {
-        this.$parent.exit;
-    }
   },
   data: () => ({
 

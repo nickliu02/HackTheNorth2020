@@ -38,8 +38,8 @@
                 </v-list-item>
 
 
-                <v-list-item 
-                    
+                <v-list-item
+
                 >
                     <v-list-item-icon>
                         <v-icon>{{ mdiLogoutVariant }}</v-icon>
@@ -71,7 +71,10 @@ export default {
       items: [
           { title: "Home", icon: mdiHome, route: '/Home' },
           { title: "Account", icon: mdiAccount, route: '/Account' },
-      ]
+      ],
+
+      mdiLogoutVariant: mdiLogoutVariant,
+
   })
 }
 </script>
