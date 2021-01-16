@@ -1,7 +1,6 @@
 <template>
-    <v-app>
+    <div>
         <v-card
-
         >
             <v-app-bar
                 dark
@@ -43,7 +42,7 @@
                 </v-list-item-group>
             </v-list>
             </v-navigation-drawer>
-    </v-app>
+    </div>
 </template>
 
 <script>

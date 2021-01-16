@@ -1,7 +1,11 @@
 <template>
     <v-app>
         <Appbar/>
-        <h1>Projects</h1>
+        <v-card>
+
+          <h1>Projects</h1>
+
+        </v-card>
     </v-app>
 </template>
 
