@@ -79,7 +79,7 @@ export default {
   methods: {
     validate() {
       this.$store.commit('auth/setAuth',true); // Change this to fit whatever
-      this.$router.push('/Projects');
+      this.$router.push('/Dashboard');
       if (this.$refs.loginForm.validate()) {
         // submit form to server/API here...
       }

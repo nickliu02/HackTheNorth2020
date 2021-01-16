@@ -39,7 +39,8 @@
 
 
                 <v-list-item
-
+                    link
+                    @click="logout"
                 >
                     <v-list-item-icon>
                         <v-icon>{{ mdiLogoutVariant }}</v-icon>
@@ -55,7 +56,7 @@
 </template>
 
 <script>
-import { mdiHome, mdiAccount, mdiLogoutVariant } from '@mdi/js';
+import { mdiViewDashboard, mdiAccount, mdiLogoutVariant } from '@mdi/js';
 
 
 export default {
@@ -69,12 +70,20 @@ export default {
       drawer: false,
       group: null,
       items: [
-          { title: "Home", icon: mdiHome, route: '/Home' },
+          { title: "Dashboard", icon: mdiViewDashboard, route: '/Dashboard' },
           { title: "Account", icon: mdiAccount, route: '/Account' },
       ],
 
       mdiLogoutVariant: mdiLogoutVariant,
 
-  })
+  }),
+
+  methods: {
+      logout() {
+          this.$store.commit('auth/setJwt', null);
+          this.$router.push('Home');
+      },
+
+  }
 }
 </script>
