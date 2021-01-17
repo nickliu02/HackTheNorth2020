@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-icon x-large @click="returnBack" class="ma-4">{{mdiKeyboardBackspace}}</v-icon>
+    <v-btn>Copy Guest URL</v-btn>
 
     <v-navigation-drawer absolute right v-bind:width="300">
         <iframe v-for="(vid, index) in videos" :key="index" :src="vid.url" class="cam" scrolling="no">
