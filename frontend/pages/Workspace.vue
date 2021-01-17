@@ -8,16 +8,16 @@
         </iframe>
     </v-navigation-drawer>
 
-    
-    
+
+
     <h1>{{ this.project.title }}</h1>
-    <iframe :src="getWorkspace()" frameborder="0" id="frame"></iframe>
+    <iframe :src="this.vncUrl" frameborder="0" id="frame"></iframe>
   </v-app>
 
 </template>
 
 <script>
-import { mdiKeyboardBackspace } from '@mdi/js';
+import {mdiKeyboardBackspace} from '@mdi/js';
 
 
 export default {
@@ -34,6 +34,7 @@ export default {
           { url: "https://fr.wikipedia.org/wiki/Main_Page" },
           { url: "https://fr.wikipedia.org/wiki/Main_Page" },
       ],
+    vncUrl: ''
 
   }),
 
@@ -49,7 +50,7 @@ export default {
           } catch (err) {
               console.log(err);
           }
-          
+
       },
 
       async getVideoLink() {
@@ -63,18 +64,18 @@ export default {
 
       async getWorkspace() {
           try {
-              const res = await this.$axios.get(`http://ceres.host.412294.xyz/users/vnc_url?username=${this.$store.state.auth.user}&workspaceId=${this.projectId}`);
-              return res.data;
+            this.vncUrl = await this.$axios.$get(`http://ceres.host.412294.xyz/users/vnc_url?username=${this.$store.state.auth.user}&workspaceId=${this.projectId}`);
           } catch (error) {
               console.log(err);
           }
       }
   },
-  
-  mounted() {
+
+  async mounted() {
       this.projectId = this.$route.query.id;
-      this.getProject(this.projectId);
-      this.getVideoLink();
+      await this.getProject(this.projectId);
+      await this.getVideoLink();
+      await this.getWorkspace();
   },
 
 }
@@ -92,7 +93,7 @@ export default {
 #vids {
     display: inline-flex;
     margin-top: 20px;
-    
+
 }
 
 .cam {
