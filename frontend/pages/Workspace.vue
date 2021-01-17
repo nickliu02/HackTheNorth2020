@@ -2,7 +2,7 @@
   <v-app>
     <v-icon x-large @click="returnBack" class="ma-4">{{mdiKeyboardBackspace}}</v-icon>
     <p style="text-align: center"><a :href="this.guestUrl">Guest Url (Copy this link)</a></p>
-<!--    <p>Login password: {{this.entry.password}}</p>-->
+    <p style="text-align: center">Login password: {{this.entry.password}}</p>
     <v-navigation-drawer absolute right v-bind:width="300">
         <iframe v-for="(vid, index) in videos" :key="index" :src="vid.url" class="cam" scrolling="no">
 
@@ -73,7 +73,7 @@ export default {
             const userId = jwt.decode(this.$store.state.auth.jwt).id;
             this.entry = await this.$axios.$get(`https://api.subspace.tech/users/workspaces/${userId}/${this.projectId}/entry`, {
               headers: {
-                'x-access-token': this.$store.state.auth.user
+                'x-access-token': this.$store.state.auth.jwt
               }
             })
 
