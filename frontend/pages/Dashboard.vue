@@ -19,7 +19,7 @@
 
 
     <v-container class = "d-flex flex-wrap align-content-space-around">
-      <v-hover v-slot="{hover}" v-for="(project,index) in info.projects" :key="index">
+      <v-hover v-slot="{hover}" v-for="(project,index) in info" :key="index">
         <v-card
           outlined
           class="mx-auto ma-12"
@@ -49,13 +49,24 @@
             </v-list>
             </v-menu>
           </v-card-title>
-          <v-img
-            max-height="300"
+          <div v-if="project.thumbnail != null">
+            <v-img
+              max-height="300"
+              max-width="400"
+              :src="project.thumbnail"
+            > </v-img>
+          </div>
+
+          <div v-else>
+            <v-skeleton-loader
             max-width="400"
-            :src="project.thumbnail"
-          > </v-img>
-          <v-card-text>{{project.os}}</v-card-text>
-          <v-card-text>{{formatConfig(project.config)}}</v-card-text>
+            >
+            </v-skeleton-loader>
+          </div>
+
+          <v-card-text>OS: Linux</v-card-text>
+          <v-card-text>Created at: {{project.createdAt}}</v-card-text>
+          <v-card-text>Packages installed: {{formatConfig(project.packages)}}</v-card-text>
 
         </v-card>
       </v-hover>
@@ -124,6 +135,7 @@ export default {
         isDeleteModalOpen: false,
         isDuplicateModalOpen: false,
         isNewProjectModalOpen: false,
+
     }
   },
 
@@ -168,6 +180,7 @@ export default {
   },
   mounted: function() {
     // Getting VM info
+    /*
     this.info = {
       projects: [
         {
@@ -207,10 +220,12 @@ export default {
         }
       ]
     }
-    /*
-    this.$axios.get(this.BaseURL + "/projects",
+    */
+    console.log(this.$store.state.auth.jwt);
+    this.$axios.get("http://ceres.host.412294.xyz" + "/users/workspaces?username="+this.$store.state.auth.user,
       {
         headers: {
+          'Content-Type':'application/json',
           'x-access-token': this.$store.state.auth.jwt
         }
       }
@@ -222,8 +237,6 @@ export default {
       .catch(error => {
         console.log(error);
       })
-
-     */
   }
 }
 </script>
