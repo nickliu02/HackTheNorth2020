@@ -74,8 +74,9 @@ export default {
     },
     async createProject() {
       this.form.username = this.$store.state.auth.user;
-      console.log(this.form);
-      this.form.packages = this.form.packages.split(";");
+      if (this.form.packages !== null) {
+        this.form.packages = this.form.packages.split(";")
+      }
       try {
           const res = await this.$axios.post("http://ceres.host.412294.xyz" + "/workspaces",
             {
@@ -95,7 +96,7 @@ export default {
           console.log(err)
       }
       
-      if (this.users !== null) {
+      /*if (this.users !== null) {
 
       
         this.users = this.users.split(";")
@@ -117,7 +118,7 @@ export default {
                     console.log(err);
                 }
             }
-      }
+      }*/
       this.form.packages = "";
       this.exit()
       

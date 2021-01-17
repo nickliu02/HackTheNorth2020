@@ -11,7 +11,7 @@
     
     
     <h1>{{ this.project.title }}</h1>
-    <iframe src="https://fr.wikipedia.org/wiki/Main_Page" frameborder="0" id="frame"></iframe>
+    <iframe :src="getWorkspace()" frameborder="0" id="frame"></iframe>
   </v-app>
 
 </template>
@@ -35,7 +35,6 @@ export default {
           { url: "https://fr.wikipedia.org/wiki/Main_Page" },
       ],
 
-      videoLinkData: {},
   }),
 
   methods: {
@@ -58,6 +57,15 @@ export default {
               const res = this.$axios.get('https://video.substream.tech:8880/room/' + this.projectId);
               console.log(res);
           } catch (err) {
+              console.log(err);
+          }
+      },
+
+      async getWorkspace() {
+          try {
+              const res = await this.$axios.get(`http://ceres.host.412294.xyz/users/vnc_url?username=${this.$store.state.auth.user}&workspaceId=${this.projectId}`);
+              return res.data;
+          } catch (error) {
               console.log(err);
           }
       }

@@ -207,6 +207,8 @@ export default {
       },
 
       enterWorkspace(project) {
+        console.log("hhhhhhhhh")
+        console.log(project)
         this.$router.push('/Workspace?id='+project.id);
       },
 
