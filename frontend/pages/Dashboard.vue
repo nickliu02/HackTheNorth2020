@@ -49,19 +49,19 @@
             </v-list>
             </v-menu>
           </v-card-title>
-          <div v-if="project.thumbnail != null">
+          <div v-if="project.thumbnail === null">
+            <v-skeleton-loader
+              max-width="400"
+            >
+            </v-skeleton-loader>
+          </div>
+
+          <div v-else>
             <v-img
               max-height="300"
               max-width="400"
               :src="project.thumbnail"
             > </v-img>
-          </div>
-
-          <div v-else>
-            <v-skeleton-loader
-            max-width="400"
-            >
-            </v-skeleton-loader>
           </div>
 
           <v-card-text>OS: Linux</v-card-text>
