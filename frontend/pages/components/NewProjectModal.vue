@@ -88,13 +88,14 @@ export default {
                 }
                 }
             )
+                this.info = res.data;
+
       }
       catch (err) {
           console.log(err)
       }
       
 
-      this.info = res.data;
       this.users = this.users.split(";")
           for (var i = 0; i<this.users.length; i++) {
             console.log("Adding",this.users[i])
