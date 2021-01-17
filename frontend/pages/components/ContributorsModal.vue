@@ -99,12 +99,14 @@ export default {
     },
 
     async addUser() {
+        this.isAddedModalOpen = true;
+        console.log(this.project);
         await this.$axios.post('/workspaces/add_user/' + this.project.id, {
             'username': this.user
         }, {
             headers: {'Content-Type':'application/json'}
         }).then((res) => {
-            this.$ref.form.reset();
+            this.user = "";
         })
     },
   },
