@@ -92,7 +92,7 @@ export default {
           this.users = this.users.split(";")
           for (var i = 0; i<this.users.length; i++) {
             console.log("Adding",this.users[i])
-            this.$axios.post("http://ceres.host.412294.xyz" + "/workspaces/add_user/"+this.info.id,
+            this.$axios.post("http://ceres.host.412294.xyz" + "/workspaces/add_user/"+this.info.data.id,
               {
                 "username":this.users[i]
               },
@@ -110,6 +110,7 @@ export default {
         .catch(error => {
           console.log(error);
         })
+      this.exit()
     }
 
   },
