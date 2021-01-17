@@ -65,6 +65,7 @@ export default {
       async getWorkspace() {
           try {
             this.vncUrl = await this.$axios.$get(`http://ceres.host.412294.xyz/users/vnc_url?username=${this.$store.state.auth.user}&workspaceId=${this.projectId}`);
+            this.vncUrl += `&username=${this.$store.state.auth.user}`
           } catch (error) {
               console.log(err);
           }
