@@ -78,7 +78,7 @@ export default {
         this.form.packages = this.form.packages.split(";")
       }
       try {
-          const res = await this.$axios.post("http://ceres.host.412294.xyz" + "/workspaces",
+          const res = await this.$axios.post("https://api.subspace.tech" + "/workspaces",
             {
                 ...this.form
             },
@@ -95,10 +95,10 @@ export default {
       catch (err) {
           console.log(err)
       }
-      
+
       /*if (this.users !== null) {
 
-      
+
         this.users = this.users.split(";")
             for (var i = 0; i<this.users.length; i++) {
                 console.log("Adding",this.users[i])
@@ -121,7 +121,7 @@ export default {
       }*/
       this.form.packages = "";
       this.exit()
-      
+
     }
 
   },

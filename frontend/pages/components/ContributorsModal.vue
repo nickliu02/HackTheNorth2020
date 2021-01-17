@@ -102,7 +102,7 @@ export default {
     async addUser() {
         this.isAddedModalOpen = true;
         console.log(this.project);
-        await this.$axios.post('http://ceres.host.412294.xyz/workspaces/add_user/' + this.project.id, {
+        await this.$axios.post('https://api.subspace.tech/workspaces/add_user/' + this.project.id, {
             'username': this.user
         }, {
             headers: {'Content-Type':'application/json',
@@ -115,7 +115,7 @@ export default {
     },
 
     async removeUser(item) {
-      await this.$axios.post('http://ceres.host.412294.xyz/workspaces/remove_user/' + this.project.id, {
+      await this.$axios.post('https://api.subspace.tech/workspaces/remove_user/' + this.project.id, {
         'userId': item.id
       }, {
         headers: {'Content-Type':'application/json',
@@ -127,7 +127,7 @@ export default {
     },
 
     async getUsers() {
-        const res = await this.$axios.get('http://ceres.host.412294.xyz/workspaces/'+ this.project.id + '/users');
+        const res = await this.$axios.get('https://api.subspace.tech/workspaces/'+ this.project.id + '/users');
         console.log(res);
         this.users = res.data;
     }
@@ -142,7 +142,7 @@ export default {
   }),
 
   mounted() {
-    console.log('here')    
+    console.log('here')
   }
 }
 </script>

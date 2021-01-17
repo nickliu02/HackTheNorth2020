@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-icon x-large @click="returnBack" class="ma-4">{{mdiKeyboardBackspace}}</v-icon>
-    <v-btn>Copy Guest URL</v-btn>
-
+    <p style="text-align: center"><a :href="this.guestUrl">Guest Url (Copy this link)</a></p>
+<!--    <p>Login password: {{this.entry.password}}</p>-->
     <v-navigation-drawer absolute right v-bind:width="300">
         <iframe v-for="(vid, index) in videos" :key="index" :src="vid.url" class="cam" scrolling="no">
 
@@ -19,7 +19,7 @@
 
 <script>
 import {mdiKeyboardBackspace} from '@mdi/js';
-
+import jwt from 'jsonwebtoken'
 
 export default {
   name: "Workspace",
@@ -35,8 +35,9 @@ export default {
           { url: "https://fr.wikipedia.org/wiki/Main_Page" },
           { url: "https://fr.wikipedia.org/wiki/Main_Page" },
       ],
-    vncUrl: ''
-
+    vncUrl: '',
+    guestUrl: '',
+    entry:{}
   }),
 
   methods: {
@@ -65,12 +66,21 @@ export default {
 
       async getWorkspace() {
           try {
-            this.vncUrl = await this.$axios.$get(`http://ceres.host.412294.xyz/users/vnc_url?username=${this.$store.state.auth.user}&workspaceId=${this.projectId}`);
+            this.vncUrl = await this.$axios.$get(`https://api.subspace.tech/users/vnc_url?username=${this.$store.state.auth.user}&workspaceId=${this.projectId}`);
+            this.guestUrl = this.vncUrl + '&view_only=true&show_dot=true';
             this.vncUrl += `&username=${this.$store.state.auth.user}`
+
+            const userId = jwt.decode(this.$store.state.auth.jwt).id;
+            this.entry = await this.$axios.$get(`https://api.subspace.tech/users/workspaces/${userId}/${this.projectId}/entry`, {
+              headers: {
+                'x-access-token': this.$store.state.auth.user
+              }
+            })
+
           } catch (error) {
-              console.log(err);
+              console.log(error);
           }
-      }
+      },
   },
 
   async mounted() {

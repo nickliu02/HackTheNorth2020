@@ -153,7 +153,7 @@ export default {
       async openModal(project) {
           this.isModalOpen = true;
           this.selectedProject = project;
-          const res = await this.$axios.get('http://ceres.host.412294.xyz/workspaces/'+ project.id + '/users');
+          const res = await this.$axios.get('https://api.subspace.tech/workspaces/'+ project.id + '/users');
           console.log(res);
           this.users = res.data;
       },
@@ -188,7 +188,7 @@ export default {
 
       getWorkspaces() {
         console.log("here22");
-        this.$axios.get("http://ceres.host.412294.xyz" + "/users/workspaces?username="+this.$store.state.auth.user,
+        this.$axios.get("https://api.subspace.tech" + "/users/workspaces?username="+this.$store.state.auth.user,
           {
             headers: {
               'Content-Type':'application/json',
@@ -258,7 +258,7 @@ export default {
     */
     console.log(this.$store.state.auth.jwt);
     this.getWorkspaces();
-    
+
   }
 }
 </script>

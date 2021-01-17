@@ -13,6 +13,7 @@
     "@nuxtjs/axios": "^5.12.5",
     "@opentok/client": "^2.19.0",
     "core-js": "^3.6.5",
+    "jsonwebtoken": "^8.5.1",
     "nuxt": "^2.14.6"
   },
   "devDependencies": {

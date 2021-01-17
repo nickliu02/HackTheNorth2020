@@ -51,7 +51,7 @@ export default {
         this.$emit("exit", true);
     },
     deleteProject() {
-      this.$axios.delete("http://ceres.host.412294.xyz" + "/workspaces/"+this.project.id,
+      this.$axios.delete("https://api.subspace.tech" + "/workspaces/"+this.project.id,
         {
           headers: {
             'Content-Type':'application/json',

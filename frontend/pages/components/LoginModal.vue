@@ -78,7 +78,7 @@ export default {
          "username": this.loginUsername,
          "password": this.loginPassword
         }
-        this.$axios.post("http://ceres.host.412294.xyz"+"/users/login", {
+        this.$axios.post("https://api.subspace.tech"+"/users/login", {
           ...form
         },
           {
@@ -106,7 +106,7 @@ export default {
           "username": this.username,
           "password": this.password
         }
-        this.$axios.post("http://ceres.host.412294.xyz"+"/users", {
+        this.$axios.post("https://api.subspace.tech"+"/users", {
           ...form
         },
           {
