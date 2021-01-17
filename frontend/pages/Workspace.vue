@@ -3,15 +3,14 @@
     <v-icon x-large @click="returnBack" class="ma-4">{{mdiKeyboardBackspace}}</v-icon>
     <p style="text-align: center"><a :href="this.guestUrl">Guest Url (Copy this link)</a></p>
     <p style="text-align: center">Login password: {{this.entry.password}}</p>
-    <v-navigation-drawer absolute right v-bind:width="300">
+    <!--<v-navigation-drawer absolute right v-bind:width="300">
         <iframe v-for="(vid, index) in videos" :key="index" :src="vid.url" class="cam" scrolling="no">
 
         </iframe>
-    </v-navigation-drawer>
+    </v-navigation-drawer>-->
 
 
 
-    <h1>{{ this.project.title }}</h1>
     <iframe :src="this.vncUrl" frameborder="0" id="frame"></iframe>
 
     <no-ssr>
@@ -42,8 +41,7 @@ export default {
       project: {},
       projectId: '',
       videos: [
-          { url: "https://fr.wikipedia.org/wiki/Main_Page" },
-          { url: "https://fr.wikipedia.org/wiki/Main_Page" },
+         
       ],
     vncUrl: '',
     guestUrl: '',
