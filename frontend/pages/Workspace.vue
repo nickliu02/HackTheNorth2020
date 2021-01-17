@@ -13,6 +13,14 @@
 
     <h1>{{ this.project.title }}</h1>
     <iframe :src="this.vncUrl" frameborder="0" id="frame"></iframe>
+
+    <no-ssr>
+        <Session
+            v-bind:apiKey='vidInfo.apiKey'
+            v-bind:sessionId='vidInfo.sessionId'
+            v-bind:token='vidInfo.token'
+        />
+    </no-ssr>
   </v-app>
 
 </template>
@@ -20,12 +28,14 @@
 <script>
 import {mdiKeyboardBackspace} from '@mdi/js';
 import jwt from 'jsonwebtoken'
+import Session from './components/Session.vue';
 
 export default {
   name: "Workspace",
 
   components: {
     mdiKeyboardBackspace,
+    Session,
   },
   data: () => ({
       mdiKeyboardBackspace: mdiKeyboardBackspace,
@@ -37,7 +47,8 @@ export default {
       ],
     vncUrl: '',
     guestUrl: '',
-    entry:{}
+    entry:{},
+    vidInfo: {}
   }),
 
   methods: {
@@ -57,7 +68,7 @@ export default {
 
       async getVideoLink() {
           try {
-              const res = this.$axios.get('https://video.subspace.tech:8880/room/' + this.projectId);
+              const res = await this.$axios.$get('https://video.subspace.tech/room/' + this.projectId);
               console.log(res);
           } catch (err) {
               console.log(err);
@@ -97,9 +108,9 @@ export default {
 #frame {
     text-align: center;
     display:block;
-    width: 70vw;
-    height: 70vh;
-    margin: auto 10vw;
+    width: 80vw;
+    height: 80vh;
+    margin: auto 6vw;
 }
 
 #vids {
