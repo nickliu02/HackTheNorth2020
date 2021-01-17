@@ -43,7 +43,7 @@
                                 </v-form>
                             </v-card-text>
                             <v-card-actions>
-                                <v-btn @click="createProject" color="secondary">Create Project!</v-btn>
+                                <v-btn @click="createProject" color="secondary" block>Create Project!</v-btn>
                             </v-card-actions>
 
 
@@ -72,45 +72,52 @@ export default {
     exit() {
         this.$emit("exit", true);
     },
-    createProject() {
+    async createProject() {
       this.form.username = this.$store.state.auth.user;
-
+      console.log(this.form);
       this.form.packages = this.form.packages.split(";");
-      this.$axios.post("http://ceres.host.412294.xyz" + "/workspaces",
-      {
-        ...this.form
-      },
-        {
-          headers: {
-            'Content-Type':'application/json',
-            'x-access-token': this.$store.state.auth.jwt
-          }
-        }
-      )
-        .then(response => {
-          this.info = response.data;
-          this.users = this.users.split(";")
+      try {
+          const res = await this.$axios.post("http://ceres.host.412294.xyz" + "/workspaces",
+            {
+                ...this.form
+            },
+                {
+                headers: {
+                    'Content-Type':'application/json',
+                    'x-access-token': this.$store.state.auth.jwt
+                }
+                }
+            )
+      }
+      catch (err) {
+          console.log(err)
+      }
+      
+
+      this.info = res.data;
+      this.users = this.users.split(";")
           for (var i = 0; i<this.users.length; i++) {
             console.log("Adding",this.users[i])
-            this.$axios.post("http://ceres.host.412294.xyz" + "/workspaces/add_user/"+this.info.data.id,
-              {
-                "username":this.users[i]
-              },
-              {
-                headers: {
-                  'Content-Type':'application/json',
-                  'x-access-token': this.$store.state.auth.jwt
+            try {
+                await this.$axios.post("http://ceres.host.412294.xyz" + "/workspaces/add_user/"+this.info.data.id,
+                {
+                    "username":this.users[i]
+                },
+                {
+                    headers: {
+                    'Content-Type':'application/json',
+                    'x-access-token': this.$store.state.auth.jwt
+                    }
                 }
-              }
-            )
-
+                )
+            } catch (err) {
+                console.log(err);
+            }
           }
 
-        })
-        .catch(error => {
-          console.log(error);
-        })
+      this.form.packages = "";
       this.exit()
+      
     }
 
   },
@@ -124,7 +131,13 @@ export default {
       users: "",
       info: {}
 
-  })
+  }),
+
+  computed: {
+      users: function() {
+          return this.users;
+      }
+  }
 }
 </script>
 

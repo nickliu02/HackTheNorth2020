@@ -27,7 +27,7 @@
           height = 400
           width = 400
         >
-          <v-card-title>{{project.name}} <v-spacer></v-spacer>
+          <v-card-title @click="enterWorkspace(project)">{{project.name}} <v-spacer></v-spacer>
             <v-menu
                 top
                 offset-y
@@ -50,10 +50,11 @@
             </v-menu>
           </v-card-title>
           <div v-if="project.thumbnail === null">
-            <v-skeleton-loader
+            <v-img
+              max-height="300"
               max-width="400"
-            >
-            </v-skeleton-loader>
+              src="https://tr1.cbsistatic.com/hub/i/r/2019/04/22/4d381966-1b3d-454e-9767-17343536a7f4/thumbnail/768x432/0f6e55b857b35c4af801351474788786/20190418linuxdesktopsjack.jpg"
+            > </v-img>
           </div>
 
           <div v-else>
@@ -64,7 +65,6 @@
             > </v-img>
           </div>
 
-          <v-card-text>OS: Linux</v-card-text>
           <v-card-text>Created at: {{project.createdAt}}</v-card-text>
           <v-card-text>Packages installed: {{formatConfig(project.packages)}}</v-card-text>
 
@@ -80,6 +80,7 @@
         v-show="isModalOpen"
         v-bind:dialog="isModalOpen"
         v-bind:project="selectedProject"
+        v-bind:users="users"
         @exit="exit"
     />
     <DeleteModal
@@ -135,6 +136,7 @@ export default {
         isDeleteModalOpen: false,
         isDuplicateModalOpen: false,
         isNewProjectModalOpen: false,
+        users: []
 
     }
   },
@@ -148,9 +150,12 @@ export default {
           out = out.substring(0, out.length - 2);
           return out;
       },
-      openModal(project) {
+      async openModal(project) {
           this.isModalOpen = true;
           this.selectedProject = project;
+          const res = await this.$axios.get('http://ceres.host.412294.xyz/workspaces/'+ project.id + '/users');
+          console.log(res);
+          this.users = res.data;
       },
       openDeleteModal(project) {
           this.isDeleteModalOpen = true;
@@ -181,7 +186,8 @@ export default {
           this.getWorkspaces();
       },
 
-      async getWorkspaces() {
+      getWorkspaces() {
+        console.log("here22");
         this.$axios.get("http://ceres.host.412294.xyz" + "/users/workspaces?username="+this.$store.state.auth.user,
           {
             headers: {
@@ -191,13 +197,18 @@ export default {
           }
         )
           .then(response => {
+            console.log(response.data);
             this.info = response.data;
 
           })
           .catch(error => {
             console.log(error);
           })
-      }
+      },
+
+      enterWorkspace(project) {
+        this.$router.push('/Workspace?id='+project.id);
+      },
 
   },
   mounted: function() {

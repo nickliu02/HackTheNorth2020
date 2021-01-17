@@ -1,0 +1,90 @@
+<template>
+  <v-app>
+    <v-icon x-large @click="returnBack" class="ma-4">{{mdiKeyboardBackspace}}</v-icon>
+
+    <!--<div id='vids'>
+
+        <iframe v-for="(vid, index) in videos" :key="index" :src="vid.url" class="cam">
+
+        </iframe>
+    </div>-->
+
+    <v-navigation-drawer absolute right v-bind:width="300">
+        <iframe v-for="(vid, index) in videos" :key="index" :src="vid.url" class="cam" scrolling="no">
+
+        </iframe>
+    </v-navigation-drawer>
+
+    
+    
+    <h1>{{ this.project.title }}</h1>
+    <iframe src="https://fr.wikipedia.org/wiki/Main_Page" frameborder="0" id="frame"></iframe>
+  </v-app>
+
+</template>
+
+<script>
+import { mdiKeyboardBackspace } from '@mdi/js';
+
+
+export default {
+  name: "Workspace",
+
+  components: {
+    mdiKeyboardBackspace,
+  },
+  data: () => ({
+      mdiKeyboardBackspace: mdiKeyboardBackspace,
+      project: {},
+      projectId: '',
+      videos: [
+          { url: "https://fr.wikipedia.org/wiki/Main_Page" },
+          { url: "https://fr.wikipedia.org/wiki/Main_Page" },
+      ]
+  }),
+
+  methods: {
+      returnBack() {
+          this.$router.push('/Dashboard');
+      },
+
+      async getProject(id) {
+          try {
+              const res = await this.$axios.post('/workspaces/'+id);
+              this.project = res.data;
+          } catch (err) {
+              console.log(err);
+          }
+          
+      },
+  },
+  
+  mounted() {
+      this.projectId = this.$route.query.id;
+      this.getProject(this.projectId);
+
+  },
+
+}
+</script>
+
+<style scoped>
+#frame {
+    text-align: center;
+    display:block;
+    width: 70vw;
+    height: 70vh;
+    margin: auto 10vw;
+}
+
+#vids {
+    display: inline-flex;
+    margin-top: 20px;
+    
+}
+
+.cam {
+    margin: auto auto;
+    overflow: hidden;
+}
+</style>

@@ -30,7 +30,7 @@
 
 
                 <v-virtual-scroll
-                      :items="project.users"
+                      :items="users"
                       :item-height="50"
                       height="250"
 
@@ -39,7 +39,7 @@
                       <v-list-item>
 
                         <v-list-item-content>
-                          <v-list-item-title>{{ item }}</v-list-item-title>
+                          <v-list-item-title>{{ item.username }}</v-list-item-title>
 
                         </v-list-item-content>
 
@@ -59,14 +59,13 @@
             </v-card>
         </v-dialog>
 
-        <v-dialog v-model="isAddedModalOpen">
+        <v-dialog v-model="isAddedModalOpen" max-width="300">
             <v-card-title class="white--text black">
                     User Added <v-spacer></v-spacer><v-icon @click="closeModal">{{mdiClose}}</v-icon>
                 </v-card-title>
 
             <v-btn
                 depressed
-                small
                 @click="closeModal"
                 >
                 Ok
@@ -87,6 +86,7 @@ export default {
     props: {
         dialog: Boolean,
         project: Object,
+        users: Array,
 
     },
 
@@ -110,19 +110,26 @@ export default {
             }
         }).then((res) => {
             this.user = "";
+            this.getUsers();
         })
     },
 
     async removeUser(item) {
       await this.$axios.post('http://ceres.host.412294.xyz/workspaces/remove_user/' + this.project.id, {
-        'userId': item
+        'userId': item.id
       }, {
         headers: {'Content-Type':'application/json',
           'x-access-token':this.$store.state.auth.jwt
         }
       }).then((res) => {
-
+          this.getUsers();
       })
+    },
+
+    async getUsers() {
+        const res = await this.$axios.get('http://ceres.host.412294.xyz/workspaces/'+ this.project.id + '/users');
+        console.log(res);
+        this.users = res.data;
     }
 
   },
@@ -130,8 +137,13 @@ export default {
       mdiClose: mdiClose,
       user: "",
       isAddedModalOpen: false,
+      users2: []
 
-  })
+  }),
+
+  mounted() {
+    console.log('here')    
+  }
 }
 </script>
 
