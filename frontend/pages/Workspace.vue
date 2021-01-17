@@ -57,7 +57,7 @@ export default {
 
       async getVideoLink() {
           try {
-              const res = this.$axios.get('https://video.substream.tech:8880/room/' + this.projectId);
+              const res = this.$axios.get('https://video.subspace.tech:8880/room/' + this.projectId);
               console.log(res);
           } catch (err) {
               console.log(err);
