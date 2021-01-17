@@ -86,11 +86,18 @@ export default {
           }
         )
         .then(response => {
-            console.log("Login success")
-            this.$store.commit('auth/setUser',this.loginUsername);
-            this.$store.commit('auth/setAuth',true); // Change this to fit whatever
-            this.$store.commit('auth/setJwt',response.data.token);
-            this.$router.push('/Dashboard');
+            if (response.data != "ERROR") {
+              console.log("Login success")
+              this.$store.commit('auth/setUser',this.loginUsername);
+              this.$store.commit('auth/setAuth',true); // Change this to fit whatever
+              this.$store.commit('auth/setJwt',response.data.token);
+              console.log(response.data.token);
+              this.$router.push('/Dashboard');
+            }
+
+        })
+        .catch(error => {
+          console.log(error)
         })
     }
       else if (this.tab == 1) {
@@ -106,10 +113,17 @@ export default {
             headers: {'Content-Type':'application/json'}
           })
           .then(response => {
-              this.$store.commit('auth/setUser',this.username)
-              this.$store.commit('auth/setAuth',true); // Change this to fit whatever
-              this.$store.commit('auth/setJwt', response.data.token)
-              this.$router.push('/Dashboard');
+              if (response.data != "ERROR") {
+                this.$store.commit('auth/setUser',this.username)
+                this.$store.commit('auth/setAuth',true); // Change this to fit whatever
+                this.$store.commit('auth/setJwt', response.data.token)
+                console.log(this.$store.state.auth.jwt);
+                this.$router.push('/Dashboard');
+              }
+
+          })
+          .catch(error => {
+            console.log(error)
           })
       }},
 
