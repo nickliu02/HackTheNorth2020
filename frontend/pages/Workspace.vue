@@ -2,13 +2,6 @@
   <v-app>
     <v-icon x-large @click="returnBack" class="ma-4">{{mdiKeyboardBackspace}}</v-icon>
 
-    <!--<div id='vids'>
-
-        <iframe v-for="(vid, index) in videos" :key="index" :src="vid.url" class="cam">
-
-        </iframe>
-    </div>-->
-
     <v-navigation-drawer absolute right v-bind:width="300">
         <iframe v-for="(vid, index) in videos" :key="index" :src="vid.url" class="cam" scrolling="no">
 
@@ -40,7 +33,9 @@ export default {
       videos: [
           { url: "https://fr.wikipedia.org/wiki/Main_Page" },
           { url: "https://fr.wikipedia.org/wiki/Main_Page" },
-      ]
+      ],
+
+      videoLinkData: {},
   }),
 
   methods: {
@@ -57,12 +52,21 @@ export default {
           }
           
       },
+
+      async getVideoLink() {
+          try {
+              const res = this.$axios.get('https://video.substream.tech:8880/room/' + this.projectId);
+              console.log(res);
+          } catch (err) {
+              console.log(err);
+          }
+      }
   },
   
   mounted() {
       this.projectId = this.$route.query.id;
       this.getProject(this.projectId);
-
+      this.getVideoLink();
   },
 
 }

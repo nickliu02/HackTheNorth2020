@@ -95,27 +95,29 @@ export default {
           console.log(err)
       }
       
+      if (this.users !== null) {
 
-      this.users = this.users.split(";")
-          for (var i = 0; i<this.users.length; i++) {
-            console.log("Adding",this.users[i])
-            try {
-                await this.$axios.post("http://ceres.host.412294.xyz" + "/workspaces/add_user/"+this.info.data.id,
-                {
-                    "username":this.users[i]
-                },
-                {
-                    headers: {
-                    'Content-Type':'application/json',
-                    'x-access-token': this.$store.state.auth.jwt
+      
+        this.users = this.users.split(";")
+            for (var i = 0; i<this.users.length; i++) {
+                console.log("Adding",this.users[i])
+                try {
+                    await this.$axios.post("http://ceres.host.412294.xyz" + "/workspaces/add_user/"+this.info.data.id,
+                    {
+                        "username":this.users[i]
+                    },
+                    {
+                        headers: {
+                        'Content-Type':'application/json',
+                        'x-access-token': this.$store.state.auth.jwt
+                        }
                     }
+                    )
+                } catch (err) {
+                    console.log(err);
                 }
-                )
-            } catch (err) {
-                console.log(err);
             }
-          }
-
+      }
       this.form.packages = "";
       this.exit()
       
