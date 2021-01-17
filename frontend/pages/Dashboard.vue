@@ -166,16 +166,38 @@ export default {
       exit() {
           console.log("here");
           this.isModalOpen = false;
+          this.getWorkspaces();
       },
       exitDelete() {
           this.isDeleteModalOpen = false;
+          this.getWorkspaces();
       },
       exitDuplicate() {
           this.isDuplicateModalOpen = false;
+          this.getWorkspaces();
       },
       exitNewProjectModal() {
           this.isNewProjectModalOpen = false;
+          this.getWorkspaces();
       },
+
+      async getWorkspaces() {
+        this.$axios.get("http://ceres.host.412294.xyz" + "/users/workspaces?username="+this.$store.state.auth.user,
+          {
+            headers: {
+              'Content-Type':'application/json',
+              'x-access-token': this.$store.state.auth.jwt
+            }
+          }
+        )
+          .then(response => {
+            this.info = response.data;
+
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      }
 
   },
   mounted: function() {
@@ -222,21 +244,8 @@ export default {
     }
     */
     console.log(this.$store.state.auth.jwt);
-    this.$axios.get("http://ceres.host.412294.xyz" + "/users/workspaces?username="+this.$store.state.auth.user,
-      {
-        headers: {
-          'Content-Type':'application/json',
-          'x-access-token': this.$store.state.auth.jwt
-        }
-      }
-    )
-      .then(response => {
-        this.info = response.data;
-
-      })
-      .catch(error => {
-        console.log(error);
-      })
+    this.getWorkspaces();
+    
   }
 }
 </script>
