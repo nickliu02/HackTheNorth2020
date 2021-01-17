@@ -51,6 +51,21 @@ export default {
         this.$emit("exit", true);
     },
     deleteProject() {
+      this.$axios.delete("http://ceres.host.412294.xyz" + "/workspaces/"+this.project.id,
+        {
+          headers: {
+            'Content-Type':'application/json',
+            'x-access-token': this.$store.state.auth.jwt
+          }
+        }
+      )
+        .then(response => {
+          this.info = response.data;
+
+        })
+        .catch(error => {
+          console.log(error);
+        })
         this.exit();
     }
   },
